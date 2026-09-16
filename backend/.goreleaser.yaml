@@ -49,6 +49,26 @@ builds:
       post:
         - upx {{ .Path }}
 
+  # Build configuration for linux riscv64
+  - id: linux-riscv64
+    ldflags: *ldflags
+    main: main.go
+    binary: filebrowser
+    env:
+      - CGO_ENABLED=1
+      - CC=zig cc -target riscv64-linux-musl
+    tags:
+      - analytics
+      - mupdf
+      - musl
+    goos:
+      - linux
+    goarch:
+      - riscv64
+    hooks:
+      post:
+        - upx {{ .Path }}
+
   # Build configuration for linux
   - id: linux-arm32
     ldflags: *ldflags
